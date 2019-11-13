@@ -1,0 +1,29 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: AWS Serverless Micronaut API - aws.api.gateway.graal::aws-api-gateway-graal
+Globals:
+  Api:
+    EndpointConfiguration: REGIONAL
+Resources:
+  MyServiceFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: not.used.in.provided.runtime
+      Runtime: provided
+      CodeUri: s3://sam-repo-mkairys-eu-west-2/7fe1c8734c99cc51782279ce7a39dd2b
+      MemorySize: 128
+      Policies: AWSLambdaBasicExecutionRole
+      Timeout: 15
+      Events:
+        GetResource:
+          Type: Api
+          Properties:
+            Path: /{proxy+}
+            Method: any
+Outputs:
+  MyServiceApi:
+    Description: URL for application
+    Value:
+      Fn::Sub: https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/ping
+    Export:
+      Name: MyServiceApi

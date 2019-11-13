@@ -1,0 +1,5 @@
+profile: service
+defaultPackage: aws.api.gateway.graal
+---
+testFramework: junit
+sourceLanguage: java
